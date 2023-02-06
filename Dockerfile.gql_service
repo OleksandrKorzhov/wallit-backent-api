@@ -1,0 +1,25 @@
+FROM golang:1.19.5 as build
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . ./
+
+RUN go build -o /gql_service ./cmd/gql_service
+
+#FROM debian:buster
+FROM gcr.io/distroless/base
+
+EXPOSE 3200
+
+WORKDIR /
+
+COPY --from=build /app/.env /
+#COPY --from=build /go/bin/dlv /
+COPY --from=build /gql_service /
+
+#CMD ["/dlv", "--listen=:40000", "--headless=true", "--api-version=2", "--accept-multiclient", "exec", "/server"]
+CMD ["/gql_service"]

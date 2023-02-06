@@ -5,7 +5,8 @@ services:
     container_name: dockerdev
     build:
       context: ./
-      dockerfile: Dockerfile.debug
+#      dockerfile: Dockerfile.debug
+      dockerfile: Dockerfile.gql_service
     security_opt:
       - "seccomp:unconfined"
     cap_add:
@@ -16,7 +17,8 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/dockerdev
+#      - .:/dockerdev
+      - .:/app
     depends_on:
       - db
 
