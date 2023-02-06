@@ -17,7 +17,7 @@ FROM gcr.io/distroless/base
 
 WORKDIR /
 
-COPY --from=build /app/.env /
+#COPY --from=build /app/.env /
 #COPY --from=build /go/bin/dlv /
 COPY --from=build /gql_service /
 
