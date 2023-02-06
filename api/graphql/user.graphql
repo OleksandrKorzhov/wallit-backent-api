@@ -1,0 +1,28 @@
+input ExchangeAuthTokenForUserProfileInput {
+    identityProviderID: String!
+}
+
+extend type Mutation {
+    exchangeAuthTokenForUserProfile(input: ExchangeAuthTokenForUserProfileInput!): User!
+    updateUser(id: ID!, input: UpdateUserInput): User!
+    setSpendingCategories(userID: ID!, spendingCategoryIDs: [ID!]!): User!
+    setNotificationChannels(userID: ID!, notificationChannel: [UserNotificationChannelPreferencesChanel!]!): User!
+    setOfferFrequency(userID: ID!, frequency: UserOfferFrequency!): User!
+}
+
+extend type Query {
+    spendingCategories(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: SpendingCategoryWhereInput
+    ): SpendingCategoryConnection!
+    notificationChannels(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: UserNotificationChannelPreferencesWhereInput
+    ): UserNotificationChannelPreferencesConnection!
+}

@@ -1,0 +1,18 @@
+extend type Query {
+    discountOffers(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        orderBy: DiscountOfferOrder
+        where: DiscountOfferWhereInput
+    ): DiscountOfferConnection!
+}
+
+#extend type Subscription {
+#    discountOffers(recipientID: ID!): DiscountOffer!
+#}
+
+extend type Mutation {
+    createDiscountOffer(input: CreateDiscountOfferInput!): DiscountOffer!
+}

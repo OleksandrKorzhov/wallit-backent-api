@@ -1,0 +1,26 @@
+input CreateLinkTokenParams {
+    userId: ID!
+}
+
+type LinkTokenHost {
+    linkToken: String!
+}
+
+input ExchangePublicTokenParams {
+    userId: ID!
+    publicToken: String!
+}
+
+#type User {
+#    identityProviderId: String!
+#}
+
+#type Mutation {
+#    exchangeAuthTokenForUserProfile(input: CreateUserInput!): User!
+#    createLinkToken(input: CreateLinkTokenParams!): LinkTokenHost!
+#    exchangePublicToken(input: ExchangePublicTokenParams!): String!
+#}
+
+#type Query {
+#    none: String
+#}

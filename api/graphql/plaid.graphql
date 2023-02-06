@@ -1,0 +1,83 @@
+#extend type PlaidItem {
+#    institutionId: String!
+##    itemId: String!
+#    error: Boolean!
+#    institution: InstitutionInfo!
+#    accounts: [PlaidAccountInfo!]!
+#}
+
+type InstitutionInfo {
+    institutionId: String!
+    name: String!
+}
+
+type PlaidAccountBalances {
+    available: Float!
+    current: Float!
+    isoCurrencyCode: String!
+}
+
+type PlaidAccountInfo {
+    accountId: String!
+    balances: PlaidAccountBalances!
+    mask: String!
+    name: String!
+    officialName: String!
+    type: String!
+    transactions(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: TransactionWhereInput
+        orderBy: TransactionOrder
+    ): TransactionConnection!
+}
+
+#type PlaidItemInfoConnection {
+#    edges: [PlaidItemInfoEdge]
+#    pageInfo: PageInfo!
+#    totalCount: Int!
+#}
+
+#type PlaidItemInfoEdge {
+#    node: PlaidItemInfo
+#    cursor: Cursor!
+#}
+
+extend type Query {
+    plaidItems(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: PlaidItemWhereInput
+    ): PlaidItemConnection!
+    transactions(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        orderBy: TransactionOrder
+        where: TransactionWhereInput
+    ): TransactionConnection!
+    plaidInstitutionAccounts(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: PlaidInstitutionAccountWhereInput
+    ): PlaidInstitutionAccountConnection
+    plaidInstitutions(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: PlaidInstitutionWhereInput
+    ): PlaidInstitutionConnection
+}
+
+type Mutation {
+    createLinkToken(input: CreateLinkTokenParams!): LinkTokenHost!
+    exchangePublicToken(input: ExchangePublicTokenParams!): String!
+}
