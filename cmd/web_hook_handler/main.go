@@ -26,6 +26,8 @@ func main() {
 	dbPassword := config.Get[string]("DB_PASSWORD")
 	dbName := config.Get[string]("DB_NAME")
 
+	port := config.Get[string]("PORT")
+
 	var entOptions []ent.Option
 	entOptions = append(entOptions, ent.Debug()) // @TODO: add condition for enabling/disabling database debug
 
@@ -76,9 +78,9 @@ func main() {
 		return e.String(http.StatusOK, "Ok")
 	})
 
-	log.Printf("Starting server on :4000 port")
+	log.Printf("Starting server on :%v port", port)
 
-	if err := e.Start(":4000"); err != nil {
+	if err := e.Start(":" + port); err != nil {
 		log.Fatal(err)
 	}
 }

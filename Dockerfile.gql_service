@@ -13,7 +13,7 @@ RUN go build -o /gql_service ./cmd/gql_service
 #FROM debian:buster
 FROM gcr.io/distroless/base
 
-EXPOSE 3200
+#EXPOSE 3200
 
 WORKDIR /
 

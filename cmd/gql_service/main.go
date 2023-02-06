@@ -42,6 +42,8 @@ func main() {
 	dbPassword := config.Get[string]("DB_PASSWORD")
 	dbName := config.Get[string]("DB_NAME")
 
+	port := config.Get[string]("PORT")
+
 	var entOptions []ent.Option
 	entOptions = append(entOptions, ent.Debug()) // @TODO: add condition for enabling/disabling database debug
 
@@ -128,6 +130,6 @@ func main() {
 	router.Handle("/query", srv)
 	router.Handle("/playground", playground.Handler("GraphQL", "/query"))
 
-	fmt.Printf("Connect to http://localhost:3200/playground for GraphQL playground")
-	log.Fatal(http.ListenAndServe(":3200", router))
+	fmt.Printf("Connect to http://localhost:%v/playground for GraphQL playground", port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
