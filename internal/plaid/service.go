@@ -66,8 +66,9 @@ func (p *Plaid) WithTransactionClient(db *ent.Client) *Plaid {
 	}
 }
 
-// @TODO: add passing client-id token
 func (p *Plaid) CreateLinkToken(userId int) (string, error) {
+	// @TODO: in the future add customisation and improve the conversion
+
 	requestData := plaidSdk.LinkTokenCreateRequestUser{
 		ClientUserId: strconv.Itoa(userId),
 	}
@@ -80,7 +81,6 @@ func (p *Plaid) CreateLinkToken(userId int) (string, error) {
 	request.SetProducts([]plaidSdk.Products{plaidSdk.PRODUCTS_TRANSACTIONS})
 	//request.SetLinkCustomizationName("default")
 	request.SetWebhook(p.config.webHookUrl)
-	//request.SetRedirectUri("http://localhost:3200/link/callback") // @TODO: configure callback url
 
 	res, _, err := p.client.PlaidApi.
 		LinkTokenCreate(context.Background()).

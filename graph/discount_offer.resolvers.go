@@ -6,21 +6,21 @@ package graph
 
 import (
 	"context"
-	"log"
 	"wallit/ent"
 )
 
 // CreateDiscountOffer is the resolver for the createDiscountOffer field.
 func (r *mutationResolver) CreateDiscountOffer(ctx context.Context, input ent.CreateDiscountOfferInput) (*ent.DiscountOffer, error) {
-	//client := ent.FromContext(ctx)
-	client, err := r.db.Tx(ctx)
-	if err != nil {
-		log.Printf("failed to start transaction during discount offer creation: %v", err)
-		return nil, err
-	}
+	client := ent.FromContext(ctx)
+	//client, err := r.db.Tx(ctx)
+	//if err != nil {
+	//	log.Printf("failed to start transaction during discount offer creation: %v", err)
+	//	return nil, err
+	//}
 
 	return r.discountOfferService.
-		WithTransactionClient(client.Client()).
+		//WithTransactionClient(client.Client()).
+		WithTransactionClient(client).
 		NewDiscountOffer(ctx, input)
 }
 

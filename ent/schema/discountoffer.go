@@ -21,7 +21,6 @@ type DiscountOffer struct {
 
 // Fields of the DiscountOffer.
 func (DiscountOffer) Fields() []ent.Field {
-	// @TODO: add description/conditions
 	return []ent.Field{
 		field.Int("amount").NonNegative(),
 
